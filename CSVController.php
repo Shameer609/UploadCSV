@@ -1,3 +1,44 @@
+<?php
+
+namespace Modules\Crm\Http\Controllers;
+
+use App\Business;
+use App\Category;
+use App\User;
+use App\Utils\ModuleUtil;
+use App\Utils\Util;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Routing\Controller;
+use Modules\Crm\Entities\CrmContact;
+use Modules\Crm\Entities\Realization;
+use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+use Modules\Crm\Utils\CrmUtil;
+use App\Contact;
+use App\Quotation;
+use App\ReferenceCount;
+use Illuminate\Support\Facades\Auth;
+
+class LeadController extends Controller
+{
+    protected $commonUtil;
+    protected $moduleUtil;
+    protected $crmUtil;
+
+    /**
+     * Constructor
+     *
+     * @param Util $commonUtil
+     * @return void
+     */
+    public function __construct(Util $commonUtil, ModuleUtil $moduleUtil, CrmUtil $crmUtil)
+    {
+        $this->commonUtil = $commonUtil;
+        $this->moduleUtil = $moduleUtil;
+        $this->crmUtil = $crmUtil;
+    }
 
     public function uploadLeadCSV(Request $request)
     {
@@ -66,7 +107,6 @@
     }
 
     
-
     public function CsvGetColumnIndex($value,$header)
     {
         $key=  array_search($value,$header);
@@ -77,3 +117,5 @@
                 $this->log.="<br> Column '".$value."' not Found in First row ";
         }
     }
+   
+}
